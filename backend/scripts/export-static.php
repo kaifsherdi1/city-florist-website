@@ -1,7 +1,8 @@
 <?php
 /**
- * Exports the live catalogue (settings, categories, products, offers and their
- * photos) into frontend-user/public/catalog/, so the website still shows every
+ * Exports the live catalogue (settings, categories, products, offers) into
+ * frontend-user/src/catalog/ and its photos into frontend-user/public/catalog/,
+ * so the website still shows every
  * product when it is hosted without the PHP API (for example on Vercel).
  *
  * Run locally after changing products in the dashboard, then commit and push:
@@ -15,7 +16,8 @@ if (PHP_SAPI !== 'cli') {
 
 require dirname(__DIR__) . '/includes/bootstrap.php';
 
-$out = dirname(ROOT) . '/frontend-user/public/catalog';
+$out = dirname(ROOT) . '/frontend-user/public/catalog';   // photos, served as /catalog/...
+$data = dirname(ROOT) . '/frontend-user/src/catalog';     // JSON, bundled into the site's JavaScript
 $copied = [];
 
 /** Copies an /uploads/... file into the export and returns its new public path. */
@@ -68,11 +70,11 @@ $products = [
     'categories' => $categories,
 ];
 
-if (!is_dir($out)) {
-    mkdir($out, 0755, true);
+if (!is_dir($data)) {
+    mkdir($data, 0755, true);
 }
 $flags = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES;
-file_put_contents("$out/site.json", json_encode($site, $flags));
-file_put_contents("$out/products.json", json_encode($products, $flags));
+file_put_contents("$data/site.json", json_encode($site, $flags));
+file_put_contents("$data/products.json", json_encode($products, $flags));
 
-printf("Exported %d products, %d categories and %d images to %s\n", count($products['products']), count($categories), count($copied), $out);
+printf("Exported %d products and %d categories to %s, and %d images to %s\n", count($products['products']), count($categories), $data, count($copied), $out);

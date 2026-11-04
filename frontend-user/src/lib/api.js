@@ -1,3 +1,8 @@
+// Snapshot of the catalogue made by backend/scripts/export-static.php. Bundled into the JavaScript,
+// so it can't fail to load separately.
+import siteSnapshot from '../catalog/site.json';
+import productsSnapshot from '../catalog/products.json';
+
 async function request(url, options = {}) {
   let res;
   try {
@@ -25,16 +30,19 @@ function offline() {
   return err;
 }
 
-// Snapshot of the catalogue made by backend/scripts/export-static.php, used when the API is unavailable.
-const snapshots = {};
-const snapshot = (name) => (snapshots[name] ??= fetch(`/catalog/${name}.json`).then((r) => r.json()));
+const snapshot = async (name) => (name === 'site' ? siteSnapshot : productsSnapshot);
+
+// Set at build time on hosts without PHP (see vercel.json): skip the API and use the snapshot straight away.
+const STATIC_ONLY = import.meta.env.VITE_STATIC_CATALOG === '1';
 
 /** Calls the API, falling back to the bundled catalogue only when the server can't be reached. */
 const withSnapshot = (live, fallback) =>
-  live().catch((err) => {
-    if (!err.offline) throw err;
-    return fallback();
-  });
+  STATIC_ONLY
+    ? fallback()
+    : live().catch((err) => {
+        if (!err.offline) throw err;
+        return fallback();
+      });
 
 export const api = {
   site: () =>
@@ -67,7 +75,8 @@ export const api = {
         return { product, related };
       }
     ),
-  order: (payload) => request('/api/orders.php', { method: 'POST', body: JSON.stringify(payload) }),
+  order: (payload) =>
+    STATIC_ONLY ? Promise.reject(offline()) : request('/api/orders.php', { method: 'POST', body: JSON.stringify(payload) }),
 };
 
 export const rupees = (n) => '₹' + Math.round(Number(n) || 0).toLocaleString('en-IN');

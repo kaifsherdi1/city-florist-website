@@ -66,7 +66,7 @@ From then on, every `git push` to `main` updates the live site automatically. Pr
 - Use PHP 8.1 or newer (hPanel → Advanced → PHP Configuration). `gd` and `pdo_mysql` are enabled by default.
 
 ## Hosting the website on Vercel (no PHP)
-Vercel only hosts the React site (see [vercel.json](vercel.json)); it can't run the API or the dashboard. When `/api` is unreachable, the site reads a snapshot of the catalogue from `frontend-user/public/catalog/`, so every product still shows. Buy then opens WhatsApp with the order details, but orders aren't saved to Admin → Orders.
+Vercel only hosts the React site (see [vercel.json](vercel.json)); it can't run the API or the dashboard. The site carries a snapshot of the catalogue (data in `frontend-user/src/catalog/`, photos in `frontend-user/public/catalog/`). Vercel builds with `VITE_STATIC_CATALOG=1`, so it uses the snapshot without calling `/api`. Elsewhere the snapshot is only used when `/api` can't be reached. Buy then opens WhatsApp with the order details, but orders aren't saved to Admin → Orders.
 
 The snapshot doesn't update by itself. After changing products, prices or settings locally, run this, then commit and push:
 
