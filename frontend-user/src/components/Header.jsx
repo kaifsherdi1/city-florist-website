@@ -6,6 +6,15 @@ import { waLink } from '../lib/api.js';
 import Magnetic from './Magnetic.jsx';
 import { WhatsAppIcon } from './OrderModal.jsx';
 
+// Used in the menu until the API answers (or if it can't be reached), so the shop links are always there.
+const DEFAULT_CATEGORIES = [
+  { slug: 'flower-bouquets', name: 'Flower Bouquets' },
+  { slug: 'chocolate-bouquets', name: 'Chocolate Bouquets' },
+  { slug: 'car-decoration', name: 'Car Decoration' },
+  { slug: 'room-decoration', name: 'Room Decoration' },
+  { slug: 'garlands', name: 'Bridal Garlands' },
+];
+
 export default function Header() {
   const { settings, categories } = useSite();
   const [hidden, setHidden] = useState(false);
@@ -47,11 +56,21 @@ export default function Header() {
       navigate('/');
       setTimeout(() => scrollTo(id), 600);
     } else {
-      scrollTo(id);
+      // Wait a tick so smooth scrolling is unlocked after the menu closes.
+      setTimeout(() => scrollTo(id), 50);
     }
   };
 
   const enquiry = waLink(settings.whatsapp_number, 'Hi City Florist 🌸 I would like to enquire about an order.');
+  const menuCategories = categories.length ? categories : DEFAULT_CATEGORIES;
+  const phone = settings.shop_phone || (settings.whatsapp_number ? '+' + settings.whatsapp_number : '');
+  const mainLinks = [
+    { label: 'Home', to: '/' },
+    { label: 'Shop all', to: '/shop' },
+    { label: 'Wedding', hash: '#wedding' },
+    { label: 'Collections', hash: '#collections' },
+    { label: 'Contact', hash: '#contact' },
+  ];
 
   return (
     <>
@@ -83,22 +102,39 @@ export default function Header() {
         <div className="menu" ref={menu} data-lenis-prevent>
           <div className="menu-bg" />
           <nav className="menu-nav">
-            {[
-              ['Home', '/'],
-              ['Shop all', '/shop'],
-              ...categories.map((c) => [c.name, `/shop?cat=${c.slug}`]),
-            ].map(([label, to], i) => (
-              <div className="menu-mask" key={to}>
-                <Link className="menu-link" to={to}>
-                  <small>0{i + 1}</small>
-                  {label}
-                </Link>
+            {mainLinks.map((l, i) => (
+              <div className="menu-mask" key={l.label}>
+                {l.to ? (
+                  <Link className="menu-link" to={l.to}>
+                    <small>0{i + 1}</small>
+                    {l.label}
+                  </Link>
+                ) : (
+                  <a className="menu-link" href={l.hash} onClick={goSection(l.hash)}>
+                    <small>0{i + 1}</small>
+                    {l.label}
+                  </a>
+                )}
               </div>
             ))}
           </nav>
+          <div className="menu-cats">
+            <span className="eyebrow">Shop by category</span>
+            <div>
+              {menuCategories.map((c) => (
+                <Link key={c.slug} to={`/shop?cat=${c.slug}`}>
+                  {c.name}
+                </Link>
+              ))}
+            </div>
+          </div>
           <div className="menu-foot">
             <span>{settings.address}</span>
             <span>{settings.hours}</span>
+            {phone && <a href={`tel:${phone.replace(/\s/g, '')}`}>Call {phone}</a>}
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent('City Florist ' + settings.address)}`} target="_blank" rel="noreferrer">
+              Get directions →
+            </a>
             <a href={enquiry} target="_blank" rel="noreferrer">WhatsApp us →</a>
           </div>
         </div>

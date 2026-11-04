@@ -32,7 +32,7 @@ export default function Hero() {
 
       // Pinned scroll: the arch opens up to fill the screen while petals rush toward the camera.
       if (!reducedMotion()) {
-        mm.add('(min-width: 768px)', () => {
+        mm.add('(min-width: 900px)', () => {
           const tl = gsap.timeline({
             scrollTrigger: {
               trigger: root.current,
@@ -52,7 +52,7 @@ export default function Hero() {
             .to('.hero-kicker, .hero-sub, .hero-ctas, .hero-scroll', { opacity: 0, y: -40 }, 0)
             .fromTo('.hero-reveal', { opacity: 0, y: 60 }, { opacity: 1, y: 0, ease: 'power2.out' }, 0.55);
         });
-        mm.add('(max-width: 767px)', () => {
+        mm.add('(max-width: 899px)', () => {
           gsap.to('.hero-photo', {
             yPercent: 15,
             ease: 'none',

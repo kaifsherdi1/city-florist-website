@@ -222,7 +222,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .menu-link { display: flex; align-items: baseline; gap: 18px; font: 300 clamp(2.2rem, 6.5vw, 4.6rem)/1.15 var(--serif); transition: color 0.3s, padding 0.5s var(--ease); }
 .menu-link small { font: 500 0.75rem var(--sans); color: var(--gold); letter-spacing: 0.2em; }
 .menu-link:hover { color: var(--gold-2); padding-left: 16px; font-style: italic; }
-.menu-foot { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 48px; color: var(--muted); font-size: 0.9rem; }
+.menu-cats { margin-top: 36px; }
+.menu-cats .eyebrow { display: block; margin-bottom: 14px; }
+.menu-cats div { display: flex; flex-wrap: wrap; gap: 10px; }
+.menu-cats a { padding: 10px 16px; border: 1px solid var(--line); border-radius: 99px; font-size: 0.9rem; transition: border-color 0.3s, color 0.3s; }
+.menu-cats a:hover { border-color: var(--gold); color: var(--gold-2); }
+.menu-foot { display: flex; flex-wrap: wrap; gap: 12px 40px; margin-top: 40px; color: var(--muted); font-size: 0.9rem; }
 .menu-foot a { color: var(--gold-2); }
 
 /* ---------------------------------------------------------------- Hero */
@@ -543,6 +548,25 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .step-num { position: absolute; left: 0; top: 0; }
   .pd-grid { grid-template-columns: 1fr; }
   .pd-gallery { position: relative; top: 0; }
+
+  /* Hero flows top to bottom instead of using fixed vh positions, so nothing overlaps on short or narrow screens. */
+  .hero { --arch-h: min(50svh, 600px); --title-size: clamp(2.5rem, 12vw, 5.2rem); height: auto; min-height: 100svh; display: flex; flex-direction: column; padding-top: 84px; }
+  .hero-stage { position: relative; inset: auto; flex: 1 0 auto; min-height: calc(var(--arch-h) + 2.4 * var(--title-size)); }
+  .hero-arch { width: min(62vw, 380px); height: var(--arch-h); margin: 0; }
+  /* Keep the side photos level with the arch, clear of the title lines above and below it. */
+  .hero-float-l { width: min(24vw, 170px); left: 3vw; top: calc(50% + var(--arch-h) * 0.02); }
+  .hero-float-r { width: min(22vw, 160px); right: 3vw; top: calc(50% - var(--arch-h) * 0.32); }
+  .hero-title { font-size: var(--title-size); }
+  .hero-line-1 { top: calc(50% - var(--arch-h) / 2); left: var(--pad); transform: translateY(-62%); }
+  .hero-line-2 { top: calc(50% + var(--arch-h) / 2); bottom: auto; right: var(--pad); transform: translateY(-45%); }
+  .hero-bottom { position: relative; grid-template-columns: 1fr; gap: 16px; padding-top: 12px; padding-bottom: 28px; }
+  .hero-sub { max-width: 560px; }
+  .hero-scroll { display: none; }
+  .hero-ctas .btn { flex: 1; }
+
+  .menu { justify-content: flex-start; padding-top: 96px; }
+  .menu-link { font-size: clamp(2rem, 9vw, 3.4rem); }
+  .menu-foot { flex-direction: column; gap: 10px; }
 }
 
 @media (max-width: 767px) {
@@ -551,16 +575,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .logo span { font-size: 1.6rem; }
   .logo img { width: 38px; height: 38px; }
 
-  .hero { min-height: 680px; }
-  .hero-arch { width: 62vw; height: 52vh; margin-top: -6vh; }
-  .hero-float-l { width: 24vw; left: 2vw; top: 47vh; }
-  .hero-float-r { width: 22vw; right: 2vw; top: 27vh; }
-  .hero-title { font-size: clamp(2.8rem, 13vw, 4.6rem); }
-  .hero-line-1 { top: 15vh; }
-  .hero-line-2 { bottom: 36vh; }
-  .hero-bottom { grid-template-columns: 1fr; gap: 16px; padding-bottom: 28px; }
-  .hero-scroll { display: none; }
-  .hero-ctas .btn { flex: 1; }
+  .hero { padding-top: 76px; }
+  .hero-ctas .btn { padding-inline: 14px; }
 
   .offer-spot { grid-template-columns: 1fr auto; gap: 18px; padding: 22px; }
   .offer-spot img { display: none; }
@@ -575,8 +591,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .gal-col:nth-child(3) { display: none; }
   .contact-grid { grid-template-columns: 1fr; }
   .contact-card { padding: 24px; }
-  .shop-bar { flex-direction: column; align-items: stretch; }
-  .shop-tabs { flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--pad) * -1); padding-inline: var(--pad); scrollbar-width: none; }
+  /* nowrap: a wrapping column flexbox sizes itself to the widest row, which made the page 978px wide on phones */
+  .shop-bar { flex-direction: column; align-items: stretch; flex-wrap: nowrap; }
+  .shop-tabs { min-width: 0; flex-wrap: nowrap; overflow-x: auto; margin-inline: calc(var(--pad) * -1); padding-inline: var(--pad); scrollbar-width: none; }
   .shop-tabs button { white-space: nowrap; }
   .pd-actions .btn { flex: 1; }
 }
