@@ -65,6 +65,15 @@ From then on, every `git push` to `main` updates the live site automatically. Pr
 - Enable SSL for the domain (hPanel → Security → SSL). The `.htaccess` forces HTTPS.
 - Use PHP 8.1 or newer (hPanel → Advanced → PHP Configuration). `gd` and `pdo_mysql` are enabled by default.
 
+## Hosting the website on Vercel (no PHP)
+Vercel only hosts the React site (see [vercel.json](vercel.json)); it can't run the API or the dashboard. When `/api` is unreachable, the site reads a snapshot of the catalogue from `frontend-user/public/catalog/`, so every product still shows. Buy then opens WhatsApp with the order details, but orders aren't saved to Admin → Orders.
+
+The snapshot doesn't update by itself. After changing products, prices or settings locally, run this, then commit and push:
+
+```bash
+php backend/scripts/export-static.php
+```
+
 ## Owner's daily tasks
 - **Add a product:** Admin → Products → **+ Add product**. Add a name, category, price and photos (you can pick several straight from the phone).
 - **Price the starter products quickly:** Admin → Products → tick **Only without price**, type the prices in the list, then **Save all changes**. Products at ₹0 show “Ask for price”.
