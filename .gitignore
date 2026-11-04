@@ -1,0 +1,12 @@
+node_modules/
+/frontend-user/dist/
+/deploy/
+.ftp-deploy-sync-state.json
+backend/config.php
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/database/*.sqlite*
+npm.log
+.DS_Store
+Thumbs.db
+vite.log

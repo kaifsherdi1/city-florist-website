@@ -1,0 +1,62 @@
+name: Deploy to Hostinger
+
+# Every push to main builds the React site and uploads the whole site to Hostinger over FTP.
+# Only changed files are uploaded. config.php and uploads/ on the server are never touched.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend-user/package-lock.json
+
+      - name: Build public website (frontend-user)
+        working-directory: frontend-user
+        run: |
+          npm ci
+          npm run build
+
+      - name: Lint PHP
+        run: find backend frontend-dashboard -name "*.php" -print0 | xargs -0 -n1 php -l
+
+      - name: Assemble site folder
+        run: |
+          mkdir -p deploy
+          cp -r frontend-user/dist/. deploy/
+          cp -r frontend-dashboard deploy/admin
+          cp -r backend/api deploy/api
+          cp -r backend/includes deploy/includes
+          mkdir -p deploy/database
+          cp -r backend/database/seed deploy/database/seed
+          cp backend/config.sample.php deploy/config.sample.php
+          cp backend/deploy/.htaccess deploy/.htaccess
+          mkdir -p deploy/uploads && touch deploy/uploads/.keep
+          find deploy -maxdepth 2 | sort
+
+      - name: Upload to Hostinger
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ${{ secrets.FTP_SERVER_DIR || 'public_html/' }}
+          local-dir: ./deploy/
+          exclude: |
+            **/.git*
+            **/.git*/**
+            config.php
+            uploads/**
