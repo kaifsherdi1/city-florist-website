@@ -1,0 +1,8 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "cd frontend-user && npm ci",
+  "buildCommand": "cd frontend-user && npm run build",
+  "outputDirectory": "frontend-user/dist",
+  "rewrites": [{ "source": "/((?!api/|uploads/|admin/).*)", "destination": "/index.html" }]
+}
