@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '../lib/motion.js';
 import { api } from '../lib/api.js';
+import Photo from '../components/Photo.jsx';
 
 /** Three columns of real work that scroll at different speeds. */
 export default function Gallery() {
@@ -52,7 +53,7 @@ export default function Gallery() {
           <div className="gal-col" key={c}>
             {col.map((img) => (
               <Link to={`/product/${img.slug}`} key={img.slug} className="gal-item" data-cursor="View">
-                <img src={img.src} alt={img.name} loading="lazy" />
+                <Photo src={img.src} alt={img.name} loading="lazy" />
               </Link>
             ))}
           </div>

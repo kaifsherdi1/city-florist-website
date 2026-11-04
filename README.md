@@ -81,4 +81,9 @@ php backend/scripts/export-static.php
 - **Orders:** Admin → Orders. Tap **WhatsApp** to reply, change the status, or download a CSV.
 
 ## Regenerating the starter photos
-If the original photos in `images/` change, run `php -d memory_limit=512M backend/scripts/build-seed.php` to rebuild `backend/database/seed/` (WebP + manifest).
+If the original photos in `images/` change, run `php -d memory_limit=512M backend/scripts/build-seed.php` to rebuild `backend/database/seed/` (WebP + manifest). Files named like `03-champagne-and-candles-surprise.jpg` become products with that name; other files are numbered ("Flower Bouquet No. 03").
+
+## Demo prices and new starter photos
+`php backend/scripts/demo-data.php` imports any starter photos that aren't products yet and gives every product still at ₹0 a typical Hubballi price (about 1 in 4 on sale). Prices the owner has set are never changed, and running it again changes nothing. **These are demo prices**: the owner should review them in Admin → Products before launch.
+
+The Room Decoration photos in `images/room-decoration/` are free stock placeholders (see its `CREDITS.md`), labelled on the site as representative photos. Replace them with photos of real setups when possible.

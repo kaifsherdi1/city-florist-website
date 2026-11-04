@@ -7,6 +7,7 @@ import { useOrder, WhatsAppIcon } from '../components/OrderModal.jsx';
 import ProductCard from '../components/ProductCard.jsx';
 import Price from '../components/Price.jsx';
 import Magnetic from '../components/Magnetic.jsx';
+import Photo from '../components/Photo.jsx';
 
 export default function Product() {
   const { slug } = useParams();
@@ -63,7 +64,7 @@ export default function Product() {
     <div className="product-page" ref={root}>
       <div className="container pd-grid">
         <div className="pd-gallery">
-          <div className="pd-main">{img ? <img src={img.src} alt={p.name} /> : <div className="product-noimg">🌸</div>}</div>
+          <div className="pd-main">{img ? <Photo key={img.src} src={img.src} alt={p.name} whole /> : <div className="product-noimg">🌸</div>}</div>
           {p.images.length > 1 && (
             <div className="pd-thumbs">
               {p.images.map((im, i) => (

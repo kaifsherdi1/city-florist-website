@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useGSAP } from '@gsap/react';
 import { gsap, reducedMotion } from '../lib/motion.js';
 import { useSite } from '../lib/site.jsx';
+import Photo from '../components/Photo.jsx';
 
 /** Pinned horizontal gallery of the five collections (native swipe on mobile). */
 export default function Collections() {
@@ -29,20 +30,27 @@ export default function Collections() {
           },
         });
         gsap.utils.toArray('.coll-card').forEach((card) => {
+          // Gentle parallax: a 12% zoom leaves 6% spare on each side, so a ±5% drift never shows an edge.
           gsap.fromTo(
-            card.querySelector('.coll-img img'),
-            { xPercent: -12, scale: 1.25 },
+            card.querySelector('.coll-img img:not(.photo-backdrop)'),
+            { xPercent: -5, scale: 1.12 },
             {
-              xPercent: 12,
+              xPercent: 5,
               ease: 'none',
               scrollTrigger: { trigger: card, containerAnimation: scroll, start: 'left right', end: 'right left', scrub: true },
             }
           );
-          gsap.from(card.querySelector('.coll-img'), {
-            clipPath: 'inset(15% 15% 15% 15% round 24px)',
-            ease: 'power2.out',
-            scrollTrigger: { trigger: card, containerAnimation: scroll, start: 'left 95%', end: 'left 40%', scrub: true },
-          });
+          // End on the frame's own rounded corners; without an explicit end the radius animates to 0.
+          // Finish by 'left 70%': the last card stops at ~65% of the screen, so a later end left it clipped.
+          gsap.fromTo(
+            card.querySelector('.coll-img'),
+            { clipPath: 'inset(15% 15% 15% 15% round 24px)' },
+            {
+              clipPath: 'inset(0% 0% 0% 0% round 22px)',
+              ease: 'power2.out',
+              scrollTrigger: { trigger: card, containerAnimation: scroll, start: 'left 100%', end: 'left 70%', scrub: true },
+            }
+          );
         });
         gsap.to('.coll-progress i', {
           scaleX: 1,
@@ -70,7 +78,7 @@ export default function Collections() {
           <Link to={`/shop?cat=${c.slug}`} className="coll-card" key={c.slug} data-cursor="Explore">
             <div className={`coll-img ${c.cover ? '' : 'is-empty'}`}>
               {c.cover ? (
-                <img src={c.cover} alt={c.name} loading="lazy" />
+                <Photo src={c.cover} alt={c.name} loading="lazy" />
               ) : (
                 <div className="coll-placeholder">
                   <span className="script">{c.name}</span>

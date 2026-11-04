@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { gsap, isTouch } from '../lib/motion.js';
 import { useOrder } from './OrderModal.jsx';
 import Price from './Price.jsx';
+import Photo from './Photo.jsx';
 
 /** Product tile with a 3D tilt + light glare on hover and a Buy button. */
 export default function ProductCard({ product, index = 0 }) {
@@ -30,7 +31,7 @@ export default function ProductCard({ product, index = 0 }) {
         <Link to={`/product/${product.slug}`} className="product-media" data-cursor="View">
           {img ? (
             <>
-              <img src={img.thumb} alt={product.name} loading="lazy" decoding="async" />
+              <Photo src={img.thumb} alt={product.name} loading="lazy" decoding="async" />
               {alt && <img className="alt" src={alt.thumb} alt="" loading="lazy" decoding="async" />}
             </>
           ) : (

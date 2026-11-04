@@ -145,8 +145,8 @@ function GoldDust({ count }) {
         sizeAttenuation
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
-        color="#e2c99a"
+        blending={THREE.NormalBlending}
+        color="#c9956b"
       />
     </points>
   );
@@ -187,8 +187,8 @@ export default function PetalScene({ scroll }) {
         camera={{ position: [0, 0, 8], fov: 45 }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       >
-        <fog attach="fog" args={['#14181f', 7, 17]} />
-        <ambientLight intensity={0.55} />
+        <fog attach="fog" args={['#fff6f7', 7, 17]} />
+        <ambientLight intensity={0.9} />
         <directionalLight position={[4, 6, 5]} intensity={2.2} color="#ffe9cf" />
         <pointLight position={[-5, -2, 3]} intensity={18} color="#c9a96e" distance={14} />
         <group>

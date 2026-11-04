@@ -638,5 +638,61 @@
         "thumb": "garlands/14-thumb.webp",
         "w": 1062,
         "h": 1416
+    },
+    {
+        "category": "room-decoration",
+        "name": "Candle & Rose Heart Setup",
+        "image": "room-decoration/01.webp",
+        "thumb": "room-decoration/01-thumb.webp",
+        "w": 512,
+        "h": 683
+    },
+    {
+        "category": "room-decoration",
+        "name": "Candlelit Rose Corner",
+        "image": "room-decoration/02.webp",
+        "thumb": "room-decoration/02-thumb.webp",
+        "w": 512,
+        "h": 683
+    },
+    {
+        "category": "room-decoration",
+        "name": "Champagne & Candles Surprise",
+        "image": "room-decoration/03.webp",
+        "thumb": "room-decoration/03-thumb.webp",
+        "w": 512,
+        "h": 683
+    },
+    {
+        "category": "room-decoration",
+        "name": "Candlelight Dinner D\u00e9cor",
+        "image": "room-decoration/04.webp",
+        "thumb": "room-decoration/04-thumb.webp",
+        "w": 474,
+        "h": 632
+    },
+    {
+        "category": "room-decoration",
+        "name": "Falling Petals Surprise",
+        "image": "room-decoration/05.webp",
+        "thumb": "room-decoration/05-thumb.webp",
+        "w": 960,
+        "h": 1438
+    },
+    {
+        "category": "room-decoration",
+        "name": "Rose Petal Urli D\u00e9cor",
+        "image": "room-decoration/06.webp",
+        "thumb": "room-decoration/06-thumb.webp",
+        "w": 512,
+        "h": 683
+    },
+    {
+        "category": "room-decoration",
+        "name": "Red Roses & Hearts Surprise",
+        "image": "room-decoration/07.webp",
+        "thumb": "room-decoration/07-thumb.webp",
+        "w": 681,
+        "h": 1024
     }
 ]

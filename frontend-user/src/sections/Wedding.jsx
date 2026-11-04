@@ -40,13 +40,17 @@ export default function Wedding() {
       const cards = gsap.utils.toArray('.wed-card');
       cards.forEach((card, i) => {
         if (i === cards.length - 1) return;
-        gsap.to(card.querySelector('.wed-inner'), {
-          scale: 0.9,
-          rotateX: 8,
-          filter: 'brightness(0.45)',
-          ease: 'none',
-          scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top 15%', scrub: true },
-        });
+        gsap.fromTo(
+          card.querySelector('.wed-inner'),
+          { filter: 'brightness(1) saturate(1)' },
+          {
+            scale: 0.9,
+            rotateX: 8,
+            filter: 'brightness(0.92) saturate(0.85)',
+            ease: 'none',
+            scrollTrigger: { trigger: cards[i + 1], start: 'top bottom', end: 'top 15%', scrub: true },
+          }
+        );
       });
       cards.forEach((card) => {
         gsap.from(card.querySelectorAll('.wed-copy > *'), {
