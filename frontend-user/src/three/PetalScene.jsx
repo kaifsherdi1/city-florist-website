@@ -183,9 +183,11 @@ export default function PetalScene({ scroll }) {
     <div className="petal-canvas" ref={holder} aria-hidden="true">
       <Canvas
         frameloop={visible ? 'always' : 'never'}
-        dpr={[1, mobile ? 1.5 : 1.75]}
+        // Phones have 3× screens: rendering the full-screen canvas at 1.5× cost more GPU than the soft,
+        // fast-moving petals need. 1× (no antialiasing) looks the same there and is far lighter.
+        dpr={mobile ? 1 : [1, 1.5]}
         camera={{ position: [0, 0, 8], fov: 45 }}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
+        gl={{ antialias: !mobile, alpha: true, powerPreference: 'high-performance' }}
       >
         <fog attach="fog" args={['#fff6f7', 7, 17]} />
         <ambientLight intensity={0.9} />

@@ -1,6 +1,6 @@
 # City Florist · Hubballi
 
-Website and shop-owner dashboard for City Florist: flower bouquets, chocolate bouquets, wedding car decoration, wedding-night room decoration and bridal garlands.
+Website and shop-owner dashboard for City Florist: flower bouquets, chocolate bouquets, wedding car decoration, wedding-night room decoration, bridal garlands, teddy bears and cakes.
 
 | Folder | What it is | Tech |
 | --- | --- | --- |

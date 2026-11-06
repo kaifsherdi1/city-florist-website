@@ -13,6 +13,8 @@ const DEFAULT_CATEGORIES = [
   { slug: 'car-decoration', name: 'Car Decoration' },
   { slug: 'room-decoration', name: 'Room Decoration' },
   { slug: 'garlands', name: 'Bridal Garlands' },
+  { slug: 'teddy-bears', name: 'Teddy Bears' },
+  { slug: 'cakes', name: 'Cakes' },
 ];
 
 export default function Header() {

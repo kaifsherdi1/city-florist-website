@@ -18,7 +18,7 @@ const PANELS = [
     kicker: 'The first night',
     title: 'Wedding-Night Room Décor',
     text: 'Rose-petal beds, hearts, candles, fairy lights and fragrant flowers — a romantic room set up quietly before you arrive.',
-    img: null,
+    img: '/img/wedding-room.webp',
   },
   {
     slug: 'garlands',

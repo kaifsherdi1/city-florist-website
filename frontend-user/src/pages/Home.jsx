@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Hero from '../sections/Hero.jsx';
 import Offers from '../sections/Offers.jsx';
 import Manifesto from '../sections/Manifesto.jsx';
+import ReadyToGo from '../sections/ReadyToGo.jsx';
 import Collections from '../sections/Collections.jsx';
 import Featured from '../sections/Featured.jsx';
 import Wedding from '../sections/Wedding.jsx';
@@ -32,6 +33,7 @@ export default function Home() {
       <Hero />
       <Offers />
       <Manifesto />
+      <ReadyToGo />
       <Collections />
       <Featured />
       <Wedding />

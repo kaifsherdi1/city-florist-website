@@ -85,7 +85,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Grain overlay */
 .grain {
   position: fixed;
-  inset: -50%;
+  /* Just bigger than the screen: the jitter moves it at most ±3%, so -10% never shows an edge.
+     (It was -50%, a layer four times the screen that the browser blended over every frame.) */
+  inset: -10%;
   z-index: 90;
   pointer-events: none;
   opacity: 0.035;
@@ -185,9 +187,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .pl-panel { position: absolute; inset: 0; background: var(--slate); }
 .pl-panel:first-child { background: var(--gold); }
 .pl-inner { position: relative; display: grid; place-items: center; }
-.pl-logo { width: min(64vw, 300px); height: auto; }
+.pl-logo { grid-area: 1 / 1; width: min(64vw, 300px); height: auto; }
 .pl-ring { fill: none; stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 1; transform: rotate(-90deg); transform-origin: center; }
-.pl-word { position: absolute; font-size: clamp(2.6rem, 9vw, 4.4rem); color: var(--text); }
+.pl-word { grid-area: 1 / 1; text-align: center; line-height: 1.15; font-size: clamp(2.2rem, 8vw, 3.8rem); color: var(--text); }
 .pl-count { position: fixed; right: var(--pad); bottom: var(--pad); font: 300 clamp(3rem, 10vw, 8rem)/1 var(--serif); color: var(--gold-2); }
 
 /* ---------------------------------------------------------------- Header */
@@ -309,7 +311,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------------------------------------------------------------- Manifesto */
 .manifesto { position: relative; padding-block: clamp(100px, 16vw, 220px); }
-.manifesto-text { margin: 0; max-width: 1150px; font: 300 clamp(1.9rem, 4.4vw, 4.2rem)/1.12 var(--serif); letter-spacing: -0.015em; position: relative; z-index: 2; }
+.manifesto-text { margin: 0; max-width: min(1150px, calc(100% - clamp(160px, 18vw, 280px) - 4vw)); font: 300 clamp(1.9rem, 4.4vw, 4.2rem)/1.12 var(--serif); letter-spacing: -0.015em; position: relative; z-index: 2; }
 .manifesto-img { position: absolute; right: var(--pad); bottom: 8%; width: clamp(160px, 18vw, 280px); aspect-ratio: 3 / 4; object-fit: cover; border-radius: 999px 999px 18px 18px; opacity: 0.85; z-index: 1; }
 
 /* ---------------------------------------------------------------- Collections (horizontal) */
@@ -337,6 +339,80 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .coll-meta h3 { margin: 0 0 6px; font: 400 clamp(1.5rem, 2vw, 2rem)/1.1 var(--serif); }
 .coll-meta p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
 .coll-count { grid-area: count; justify-self: end; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--line); border-radius: 99px; padding: 6px 12px; white-space: nowrap; }
+
+/* ---------------------------------------------------------------- Ready to go (3D ring, turned by scrolling) */
+.ready-live { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 1.1rem; font: 500 0.72rem/1 var(--sans); letter-spacing: 0.2em; text-transform: uppercase; color: #1f7a45; background: rgba(37, 160, 90, 0.1); border: 1px solid rgba(37, 160, 90, 0.25); padding: 9px 14px; border-radius: 99px; }
+.ready-live i { width: 8px; height: 8px; border-radius: 50%; background: #25a05a; animation: live 1.6s infinite; }
+@keyframes live { 0% { box-shadow: 0 0 0 0 rgba(37, 160, 90, 0.55); } 100% { box-shadow: 0 0 0 10px rgba(37, 160, 90, 0); } }
+
+.rtg {
+  --card-w: clamp(220px, 21vw, 330px);
+  position: relative; height: 100vh; height: 100svh; overflow: hidden;
+  display: grid; grid-template-columns: minmax(280px, 0.8fr) 1.6fr; grid-template-rows: 1fr 1fr;
+  grid-template-areas: "copy stage" "info stage";
+  padding: 110px var(--pad) 50px; gap: 30px 3vw;
+  background: radial-gradient(60% 55% at 68% 55%, rgba(214, 69, 108, 0.1), transparent 70%);
+}
+.rtg-bg { position: absolute; inset: auto 0 6% 0; pointer-events: none; white-space: nowrap; z-index: 0; }
+.rtg-bg span { display: inline-block; font: italic 300 clamp(6rem, 17vw, 16rem)/1 var(--serif); color: transparent; -webkit-text-stroke: 1px rgba(178, 76, 108, 0.16); padding-left: 10vw; }
+.rtg-copy { grid-area: copy; align-self: end; position: relative; z-index: 2; }
+.rtg-copy .display { font-size: clamp(2.6rem, 4.6vw, 4.8rem); margin: 0; }
+.rtg-copy p { margin: 18px 0 0; max-width: 380px; }
+
+.rtg-stage { grid-area: stage; position: relative; display: grid; place-items: center; perspective: 1500px; perspective-origin: 50% 40%; z-index: 1; }
+.rtg-tilt { position: relative; width: var(--card-w); aspect-ratio: 2 / 3; transform-style: preserve-3d; transform: rotateX(-6deg); }
+.rtg-ring { position: absolute; inset: 0; transform-style: preserve-3d; }
+.rtg-card {
+  --d: 1;
+  position: absolute; inset: 0; display: block; border-radius: 20px; overflow: hidden;
+  background: var(--slate); border: 1px solid rgba(255, 255, 255, 0.5);
+  transform: rotateY(calc(var(--i) * var(--step))) translateZ(var(--r, 400px)) scale(calc(1 - var(--d) * 0.08));
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  /* --d changes every frame while the ring turns; a per-card filter re-painted all six photos each
+     frame, so the cards turning away just fade (opacity is handled by the GPU). */
+  opacity: calc(1 - var(--d) * 0.32);
+  box-shadow: 0 30px 60px -20px rgba(74, 36, 50, calc(0.45 - var(--d) * 0.15));
+}
+.rtg-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.rtg-card .script { position: absolute; inset: 0; display: grid; place-items: center; font-size: 2.4rem; color: var(--gold-2); }
+/* Light sweep across the card facing you. */
+.rtg-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.35) 50%, transparent 65%); transform: translateX(-120%); pointer-events: none; }
+.rtg-card.is-active::after { animation: sweep 1.4s 0.15s var(--ease) both; }
+@keyframes sweep { to { transform: translateX(120%); } }
+.rtg-tag { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 10px 14px; border-radius: 12px; background: rgba(255, 246, 247, 0.92); font: 400 1.25rem/1.1 var(--serif); color: var(--ink); text-align: center; opacity: 0; transform: translateY(10px); transition: opacity 0.5s, transform 0.6s var(--ease); }
+.rtg-card.is-active .rtg-tag { opacity: 1; transform: none; }
+.rtg-floor { position: absolute; left: 50%; bottom: 4%; width: min(70%, 720px); height: 60px; transform: translateX(-50%); border-radius: 50%; background: radial-gradient(closest-side, rgba(74, 36, 50, 0.22), transparent); filter: blur(6px); pointer-events: none; }
+
+.rtg-info { grid-area: info; align-self: start; position: relative; z-index: 2; padding-top: 28px; border-top: 1px solid var(--line); max-width: 380px; }
+.rtg-count { font: 500 0.78rem var(--sans); letter-spacing: 0.14em; color: var(--muted); }
+.rtg-count b { color: var(--gold-2); font-weight: 500; }
+.rtg-info h3 { margin: 12px 0 8px; font: 400 clamp(2rem, 3vw, 2.8rem)/1.05 var(--serif); animation: rtg-in 0.7s var(--ease) both; }
+.rtg-info h3 a:hover { color: var(--gold-2); }
+@keyframes rtg-in { from { opacity: 0; transform: translateY(18px); filter: blur(4px); } }
+.rtg-info .btn { margin-top: 20px; }
+.rtg-dots { display: flex; gap: 8px; margin-top: 26px; }
+.rtg-dots button { width: 22px; height: 4px; padding: 0; border: 0; border-radius: 4px; background: var(--line); cursor: pointer; transition: width 0.5s var(--ease), background 0.4s; }
+.rtg-dots button.on { width: 44px; background: var(--gold-2); }
+
+@media (max-width: 899px) {
+  .rtg {
+    --card-w: min(56vw, 270px);
+    grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; grid-template-areas: "copy" "stage" "info";
+    padding: 86px var(--pad) 28px; row-gap: 8px;
+  }
+  .rtg-copy p { display: none; }
+  .rtg-copy .ready-live { margin-bottom: 0.7rem; font-size: 0.62rem; letter-spacing: 0.12em; white-space: nowrap; }
+  .rtg-info { padding-top: 14px; max-width: none; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 16px; }
+  .rtg-info h3 { grid-column: 1; margin: 4px 0 2px; font-size: 1.8rem; }
+  .rtg-count { grid-column: 1; }
+  .rtg-info .price { grid-column: 1; }
+  .rtg-info .btn { grid-column: 2; grid-row: 1 / span 3; margin: 0; }
+  .rtg-dots { grid-column: 1 / -1; margin-top: 12px; }
+  .rtg-floor { bottom: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rtg-card.is-active::after, .rtg-info h3 { animation: none; }
+}
 
 /* ---------------------------------------------------------------- Product cards */
 .featured { padding-block: clamp(80px, 12vw, 180px); }
@@ -391,7 +467,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------------------------------------------------------------- Gallery */
 .gallery { padding-block: clamp(80px, 12vw, 160px); overflow: hidden; }
-.gallery-title { text-align: center; margin-bottom: 80px; }
+.gallery-title { position: relative; z-index: 2; text-align: center; margin-bottom: 80px; }
 .gal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(14px, 2vw, 28px); padding-inline: var(--pad); max-width: 1300px; margin: 0 auto; }
 .gal-col { display: flex; flex-direction: column; gap: clamp(14px, 2vw, 28px); }
 .gal-item { position: relative; display: block; border-radius: 18px; overflow: hidden; aspect-ratio: 2 / 3; }
@@ -641,7 +717,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .offer-spot { grid-template-columns: 1fr auto; gap: 18px; padding: 22px; }
   .offer-spot img { display: none; }
 
-  .manifesto-img { position: relative; right: auto; bottom: auto; margin: 48px 0 0 auto; width: 46vw; }
+  .manifesto-text { max-width: none; }
+  .manifesto-img { position: relative; right: auto; bottom: auto; margin: 72px 0 0 auto; width: 46vw; }
   .featured-head { grid-template-columns: 1fr; }
   .featured-grid, .shop-grid { gap: 28px 14px; }
   .product-info { flex-direction: column; align-items: stretch; gap: 12px; padding-top: 12px; }
@@ -670,3 +747,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .photo-backdrop { position: absolute !important; inset: 0; width: 100%; height: 100%; object-fit: cover !important; filter: blur(26px) saturate(1.2); transform: scale(1.2); opacity: 0.85; pointer-events: none; }
 img.is-contain { position: relative; z-index: 1; object-fit: contain !important; object-position: 50% 50% !important; }
 .product-media img.is-contain { position: absolute; }
+
+/* Phones & tablets: drop the effects that cost the most per frame on a phone GPU and that nobody can
+   see at that size: the full-screen film grain, and the live blur behind the scrolled header (it has
+   to re-blur the page under it on every scroll frame). */
+@media (max-width: 899px), (hover: none) {
+  .grain { display: none; }
+  .site-header.is-scrolled { background: rgba(255, 246, 247, 0.97); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}

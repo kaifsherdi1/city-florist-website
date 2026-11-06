@@ -136,5 +136,9 @@ function default_categories(): array
         ['car-decoration',     'Car Decoration',     'Wedding car styling with fresh flowers, ribbons & elegance.'],
         ['room-decoration',    'Room Decoration',    'Wedding-night & surprise room décor with petals, candles and lights.'],
         ['garlands',           'Bridal Garlands',    'Fresh varmala & haar for the bride and groom.'],
+        ['teddy-bears',        'Teddy Bears',        'Soft, huggable teddies to gift on their own or with flowers.'],
+        ['cakes',              'Cakes',              'Celebration cakes for birthdays, anniversaries & surprises.'],
+        // Shown in its own "Ready to go" section on the home page, not in the Collections slider.
+        ['ready-to-go',        'Ready to Go',        'Fresh flower bunches in the shop today: pick up or get them delivered.'],
     ];
 }

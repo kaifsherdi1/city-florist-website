@@ -25,10 +25,12 @@ export default function Gallery() {
   useGSAP(
     () => {
       if (!images.length) return;
-      const speeds = [-12, 10, -20];
+      // Pixel drifts (from → to) that never start above the columns' resting place, so a column can't
+      // ride up over the heading. Percent-based drifts scaled with the column height (~300px up) and did.
+      const drift = [[0, -120], [120, 0], [60, -180]];
       gsap.utils.toArray('.gal-col').forEach((col, i) => {
-        gsap.fromTo(col, { yPercent: speeds[i] * -1 }, {
-          yPercent: speeds[i],
+        gsap.fromTo(col, { y: drift[i][0] }, {
+          y: drift[i][1],
           ease: 'none',
           scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'bottom top', scrub: true },
         });

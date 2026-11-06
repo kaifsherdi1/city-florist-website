@@ -3,7 +3,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap } from '../lib/motion.js';
 
 const STEPS = [
-  ['Choose', 'Browse bouquets, chocolate bouquets, décor and garlands — or ask for something custom.'],
+  ['Choose', 'Browse bouquets, chocolate bouquets, décor, garlands, teddies and cakes — or ask for something custom.'],
   ['Tap Buy', 'Enter your name and number. Your order details are prepared automatically.'],
   ['Confirm on WhatsApp', 'Chat directly with the shop to confirm design, delivery time and payment.'],
 ];

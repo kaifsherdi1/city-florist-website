@@ -21,8 +21,9 @@ export default function Manifesto() {
           scrollTrigger: { trigger: '.manifesto-text', start: 'top 80%', end: 'bottom 45%', scrub: true },
         }
       );
+      // On phones/tablets the photo sits under the text, so it only lifts a little (a bigger lift ran into the words).
       gsap.to('.manifesto-img', {
-        yPercent: -25,
+        yPercent: window.matchMedia('(max-width: 899px)').matches ? -8 : -25,
         rotate: 6,
         ease: 'none',
         scrollTrigger: { trigger: root.current, start: 'top bottom', end: 'bottom top', scrub: true },

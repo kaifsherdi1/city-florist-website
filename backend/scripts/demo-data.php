@@ -22,10 +22,30 @@ const PRICE_TIERS = [
     'car-decoration'     => [2999, 3999, 4999, 5999, 7499, 8999, 10999],
     'room-decoration'    => [3499, 4499, 5499, 6999, 8499, 9999, 12999],
     'garlands'           => [1199, 1499, 1999, 2499, 2999, 3499, 4499],
+    'teddy-bears'        => [299, 449, 599, 799, 999, 1299, 1599],
+    'cakes'              => [549, 699, 849, 999, 1199, 1499],
+    'ready-to-go'        => [199, 249, 299, 349, 399],   // per bunch
 ];
 
-const ROOM_DESCRIPTION = 'A romantic surprise set up in your room with fresh rose petals, candles and fairy lights. '
-    . 'Representative photo: we design every setup for your room, theme and budget.';
+const DEFAULT_DESCRIPTION = 'Handcrafted fresh at City Florist, Hubballi. Message us to customise colours, size or add a card.';
+const DESCRIPTIONS = [
+    'room-decoration' => 'A romantic surprise set up in your room with fresh rose petals, candles and fairy lights. '
+        . 'Representative photo: we design every setup for your room, theme and budget.',
+    'teddy-bears'     => 'A soft, huggable teddy from City Florist, Hubballi. Gift it on its own or add a bouquet or chocolates. '
+        . 'Message us for other sizes and colours.',
+    'ready-to-go'     => 'A fresh bunch from today’s stock at City Florist, Hubballi, ready to pick up or deliver the same day. '
+        . 'Message us for a bigger bunch or to have it wrapped as a bouquet.',
+    'cakes'           => 'A fresh celebration cake for birthdays, anniversaries and surprises. '
+        . 'Message us to choose the flavour, weight and the name or message on top. Please order a few hours ahead.',
+];
+
+// 0. Create any categories added since the site was installed (e.g. Teddy Bears, Cakes).
+foreach (default_categories() as $i => [$slug, $name, $tagline]) {
+    if (!db_value('SELECT id FROM categories WHERE slug = ?', [$slug])) {
+        db_insert('categories', ['slug' => $slug, 'name' => $name, 'tagline' => $tagline, 'sort' => $i]);
+        echo "Added category $name\n";
+    }
+}
 
 // 1. Import seed photos that aren't products yet.
 $manifest = json_decode((string) file_get_contents(ROOT . '/database/seed/manifest.json'), true) ?: [];
@@ -47,9 +67,7 @@ foreach ($manifest as $i => $item) {
         'category_id' => (int) $categoryId,
         'name'        => $item['name'],
         'slug'        => unique_slug('products', $item['name']),
-        'description' => $item['category'] === 'room-decoration'
-            ? ROOM_DESCRIPTION
-            : 'Handcrafted fresh at City Florist, Hubballi. Message us to customise colours, size or add a card.',
+        'description' => DESCRIPTIONS[$item['category']] ?? DEFAULT_DESCRIPTION,
         'price'       => 0,
         'is_featured' => 0,
         'is_active'   => 1,

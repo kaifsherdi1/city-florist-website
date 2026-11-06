@@ -16,6 +16,7 @@ const fallback = {
   categories: [],
   offers: [],
   featured: [],
+  ready: [],
 };
 
 const SiteContext = createContext({ ...fallback, loading: true });

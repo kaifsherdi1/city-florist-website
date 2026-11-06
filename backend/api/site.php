@@ -22,6 +22,7 @@ try {
         'categories' => public_categories(),
         'offers'     => $offers,
         'featured'   => product_query('p.is_featured = 1', [], 'p.sort, p.id', 12),
+        'ready'      => product_query('c.slug = ?', ['ready-to-go'], 'p.sort, p.id'),
     ]);
 } catch (Throwable $e) {
     json_error(config('debug') ? $e->getMessage() : 'Server error', 500);

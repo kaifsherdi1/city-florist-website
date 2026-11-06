@@ -64,6 +64,7 @@ $site = [
         'link'     => $o['product_slug'] ? '/product/' . $o['product_slug'] : ($o['category_slug'] ? '/shop?cat=' . $o['category_slug'] : '/shop'),
     ], active_offers()),
     'featured'   => $withAssets(product_query('p.is_featured = 1', [], 'p.sort, p.id', 12)),
+    'ready'      => $withAssets(product_query('c.slug = ?', ['ready-to-go'], 'p.sort, p.id')),
 ];
 $products = [
     'products'   => $withAssets(product_query('1=1', [], 'c.sort, p.is_featured DESC, p.sort, p.id DESC')),

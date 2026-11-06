@@ -17,6 +17,9 @@ $map = [
     'car-decoration-images' => ['car-decoration',     'Car Decoration'],
     'garland-flowers'       => ['garlands',           'Bridal Garland'],
     'room-decoration'       => ['room-decoration',    'Room Decoration'],
+    'Teddy-bears'           => ['teddy-bears',        'Teddy Bear'],
+    'cakes'                 => ['cakes',              'Cake'],
+    'daily-ready-to-go'     => ['ready-to-go',        'Fresh Flowers'],
 ];
 
 $seedDir = ROOT . '/database/seed';

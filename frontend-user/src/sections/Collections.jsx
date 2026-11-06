@@ -7,7 +7,8 @@ import Photo from '../components/Photo.jsx';
 
 /** Pinned horizontal gallery of the five collections (native swipe on mobile). */
 export default function Collections() {
-  const { categories } = useSite();
+  // "Ready to Go" (today's fresh stock) has its own section on the home page.
+  const categories = useSite().categories.filter((c) => c.slug !== 'ready-to-go');
   const root = useRef(null);
 
   useGSAP(
@@ -69,7 +70,7 @@ export default function Collections() {
         <div className="coll-intro">
           <span className="eyebrow">Collections</span>
           <h2 className="display">
-            Five ways to say <em>it</em> with flowers.
+            Seven ways to say <em>it</em> with love.
           </h2>
           <p className="muted">Scroll to explore — every piece is made to order.</p>
           <div className="coll-progress"><i /></div>

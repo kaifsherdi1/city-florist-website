@@ -694,5 +694,181 @@
         "thumb": "room-decoration/07-thumb.webp",
         "w": 681,
         "h": 1024
+    },
+    {
+        "category": "room-decoration",
+        "name": "Room Decoration No. 08",
+        "image": "room-decoration/08.webp",
+        "thumb": "room-decoration/08-thumb.webp",
+        "w": 1600,
+        "h": 1200
+    },
+    {
+        "category": "room-decoration",
+        "name": "Room Decoration No. 09",
+        "image": "room-decoration/09.webp",
+        "thumb": "room-decoration/09-thumb.webp",
+        "w": 1200,
+        "h": 1600
+    },
+    {
+        "category": "room-decoration",
+        "name": "Room Decoration No. 10",
+        "image": "room-decoration/10.webp",
+        "thumb": "room-decoration/10-thumb.webp",
+        "w": 1200,
+        "h": 1600
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 01",
+        "image": "teddy-bears/01.webp",
+        "thumb": "teddy-bears/01-thumb.webp",
+        "w": 900,
+        "h": 1600
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 02",
+        "image": "teddy-bears/02.webp",
+        "thumb": "teddy-bears/02-thumb.webp",
+        "w": 900,
+        "h": 1600
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 03",
+        "image": "teddy-bears/03.webp",
+        "thumb": "teddy-bears/03-thumb.webp",
+        "w": 1600,
+        "h": 900
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 04",
+        "image": "teddy-bears/04.webp",
+        "thumb": "teddy-bears/04-thumb.webp",
+        "w": 900,
+        "h": 1600
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 05",
+        "image": "teddy-bears/05.webp",
+        "thumb": "teddy-bears/05-thumb.webp",
+        "w": 900,
+        "h": 1600
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 06",
+        "image": "teddy-bears/06.webp",
+        "thumb": "teddy-bears/06-thumb.webp",
+        "w": 1600,
+        "h": 900
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 07",
+        "image": "teddy-bears/07.webp",
+        "thumb": "teddy-bears/07-thumb.webp",
+        "w": 900,
+        "h": 1600
+    },
+    {
+        "category": "teddy-bears",
+        "name": "Teddy Bear No. 08",
+        "image": "teddy-bears/08.webp",
+        "thumb": "teddy-bears/08-thumb.webp",
+        "w": 900,
+        "h": 1600
+    },
+    {
+        "category": "cakes",
+        "name": "Cake No. 01",
+        "image": "cakes/01.webp",
+        "thumb": "cakes/01-thumb.webp",
+        "w": 1024,
+        "h": 884
+    },
+    {
+        "category": "cakes",
+        "name": "Cake No. 02",
+        "image": "cakes/02.webp",
+        "thumb": "cakes/02-thumb.webp",
+        "w": 554,
+        "h": 554
+    },
+    {
+        "category": "cakes",
+        "name": "Cake No. 03",
+        "image": "cakes/03.webp",
+        "thumb": "cakes/03-thumb.webp",
+        "w": 554,
+        "h": 554
+    },
+    {
+        "category": "cakes",
+        "name": "Cake No. 04",
+        "image": "cakes/04.webp",
+        "thumb": "cakes/04-thumb.webp",
+        "w": 1254,
+        "h": 1254
+    },
+    {
+        "category": "cakes",
+        "name": "Cake No. 05",
+        "image": "cakes/05.webp",
+        "thumb": "cakes/05-thumb.webp",
+        "w": 452,
+        "h": 678
+    },
+    {
+        "category": "ready-to-go",
+        "name": "Roses",
+        "image": "ready-to-go/01.webp",
+        "thumb": "ready-to-go/01-thumb.webp",
+        "w": 883,
+        "h": 1280
+    },
+    {
+        "category": "ready-to-go",
+        "name": "Lilies",
+        "image": "ready-to-go/02.webp",
+        "thumb": "ready-to-go/02-thumb.webp",
+        "w": 720,
+        "h": 1280
+    },
+    {
+        "category": "ready-to-go",
+        "name": "Orchids",
+        "image": "ready-to-go/03.webp",
+        "thumb": "ready-to-go/03-thumb.webp",
+        "w": 960,
+        "h": 1280
+    },
+    {
+        "category": "ready-to-go",
+        "name": "Chrysanthemums",
+        "image": "ready-to-go/04.webp",
+        "thumb": "ready-to-go/04-thumb.webp",
+        "w": 720,
+        "h": 1280
+    },
+    {
+        "category": "ready-to-go",
+        "name": "Goldenrod",
+        "image": "ready-to-go/05.webp",
+        "thumb": "ready-to-go/05-thumb.webp",
+        "w": 899,
+        "h": 1599
+    },
+    {
+        "category": "ready-to-go",
+        "name": "Gypsophila",
+        "image": "ready-to-go/06.webp",
+        "thumb": "ready-to-go/06-thumb.webp",
+        "w": 1080,
+        "h": 1080
     }
 ]

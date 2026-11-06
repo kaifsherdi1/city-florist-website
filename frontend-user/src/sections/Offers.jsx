@@ -4,7 +4,7 @@ import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '../lib/motion.js';
 import { useSite } from '../lib/site.jsx';
 
-const DEFAULT_TICKER = ['Flower Bouquets', 'Chocolate Bouquets', 'Wedding Car Décor', 'Wedding-Night Rooms', 'Bridal Garlands', 'Made fresh in Hubballi'];
+const DEFAULT_TICKER = ['Flower Bouquets', 'Chocolate Bouquets', 'Wedding Car Décor', 'Wedding-Night Rooms', 'Bridal Garlands', 'Teddy Bears', 'Cakes', 'Made fresh in Hubballi'];
 
 /** Gold marquee that speeds up and skews with scroll velocity, plus a spotlight for today's offer. */
 export default function Offers() {
@@ -26,6 +26,8 @@ export default function Offers() {
         trigger: root.current,
         start: 'top bottom',
         end: 'bottom top',
+        // The loops run forever, so only while the marquee is on screen (off screen they just burn CPU).
+        onToggle: (self) => loops.forEach((l) => (self.isActive ? l.play() : l.pause())),
         onUpdate: (self) => {
           const v = gsap.utils.clamp(-1, 1, self.getVelocity() / 2500);
           loops.forEach((l) =>
@@ -44,6 +46,7 @@ export default function Offers() {
           });
         },
       });
+      if (!st.isActive) loops.forEach((l) => l.pause());
       gsap.from('.offer-spot', {
         y: 80,
         opacity: 0,
